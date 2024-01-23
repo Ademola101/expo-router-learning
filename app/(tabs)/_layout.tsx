@@ -1,8 +1,11 @@
 import FontAwesome from '@expo/vector-icons/FontAwesome';
-import { Link, Tabs } from 'expo-router';
+import { useSegments, Tabs, Link } from 'expo-router';
 import { Pressable, useColorScheme } from 'react-native';
 
+useEffect
+
 import Colors from '../../constants/Colors';
+import { useEffect } from 'react';
 
 /**
  * You can explore the built-in icon families and icons on the web at https://icons.expo.fyi/
@@ -16,11 +19,15 @@ function TabBarIcon(props: {
 
 export default function TabLayout() {
   const colorScheme = useColorScheme();
-
+  const segment = useSegments();
+  const hide = segment.includes('[id]');
   return (
     <Tabs
       screenOptions={{
         tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
+        tabBarStyle: {
+          display: hide ? 'none' : 'flex',
+        },
       }}>
       <Tabs.Screen
         name="index"
@@ -44,12 +51,19 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
-        name="two"
+        name="two/index"
         options={{
           title: 'Tab Two',
           tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
+        //   tabBarStyle: {
+        //     display: segment[3] === 'two' ? 'flex' : 'none',
+        // },
+
+        
         }}
       />
+
+
     </Tabs>
   );
 }
